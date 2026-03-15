@@ -1,73 +1,131 @@
-# Welcome to your Lovable project
+# EDUNEXUS
 
-## Project info
+EDUNEXUS is a role-based college management dashboard with a React frontend and a FastAPI backend.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+It supports multiple user roles such as Student, Staff, Admin, Club Coordinator, and Exam Coordinator, with dedicated workflows for assignments, notes, queries, events, smart seating, and hall ticket management.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- Role-based authentication and dashboards
+- Student dashboard with attendance and fee eligibility data
+- Hall ticket generation and PDF download
+- Exam coordinator bulk hall ticket generation with generated-ticket listing
+- Smart seating preview and visualization
+- Staff assignment and query management
+- Club coordinator event submission and event tracking
 
-**Use Lovable**
+## Tech Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- Frontend: React 18, TypeScript, Vite, Tailwind CSS, shadcn/ui
+- Backend: FastAPI, SQLite
+- Testing: Vitest
 
-Changes made via Lovable will be committed automatically to this repo.
+## Project Structure
 
-**Use your preferred IDE**
+```text
+nexus-ai-dashboard-main/
+	backend/                  # FastAPI backend + SQLite database
+		main.py
+		requirements.txt
+	src/                      # React app source code
+	package.json
+```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Prerequisites
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Node.js 18+ and npm
+- Python 3.11+ (3.13 also works)
 
-Follow these steps:
+## Local Setup
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1. Clone the repository
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+```bash
+git clone https://github.com/Nandhini3Devaraj/edunexus.git
+cd edunexus
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
+2. Install frontend dependencies
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
+```
+
+3. Install backend dependencies
+
+```bash
+cd backend
+python -m pip install -r requirements.txt
+cd ..
+```
+
+## Run the Application
+
+Run backend (Terminal 1):
+
+```bash
+cd backend
+python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Run frontend (Terminal 2):
+
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+App URLs:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- Frontend: http://localhost:8080 (or the Vite port shown in terminal)
+- Backend health: http://localhost:8000/api/health
+- Swagger docs: http://localhost:8000/docs
 
-**Use GitHub Codespaces**
+## Useful Scripts
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```bash
+npm run dev         # Start frontend in dev mode
+npm run build       # Production build
+npm run preview     # Preview production build
+npm run lint        # Run ESLint
+npm run test        # Run tests once
+npm run test:watch  # Run tests in watch mode
+```
 
-## What technologies are used for this project?
+## API Overview
 
-This project is built with:
+Authentication:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- POST /api/auth/register
+- POST /api/auth/login-json
+- GET /api/auth/me
 
-## How can I deploy this project?
+Hall Tickets:
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+- GET /api/hall-tickets/eligibility
+- POST /api/hall-tickets/generate
+- POST /api/hall-tickets/generate-bulk
+- GET /api/hall-tickets/generated
+- GET /api/hall-tickets/{ticket_id}/pdf
 
-## Can I connect a custom domain to my Lovable project?
+Events:
 
-Yes, you can!
+- POST /api/events
+- GET /api/events/my
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Notes
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+- Backend uses SQLite. A local database file is created under backend.
+- This repository currently tracks backend/edunexus.db. If needed, add it to .gitignore and untrack it in a follow-up commit.
+
+## Contributing
+
+1. Create a branch
+2. Commit your changes
+3. Push and open a pull request
+
+## License
+
+No license file has been added yet.
+
+
+
